@@ -1,0 +1,86 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  
+  <div id="root"></div>
+  <script>
+    /**
+     * Ok, so, add event listeners to the view components
+     * Create binders in the controller which manually bind the model'smethods
+     * Bind the model to the view in the controller through an on model change
+     * 
+    */
+
+    class Model {
+      constructor() {
+        this.tracker = 0;
+      }
+      incrementTracker(){
+        this.tracker++;
+      }
+    }
+
+    class View {
+      constructor() {
+
+        this.button = this.CR('button');
+        this.app = this.$('#root');
+        this.button.textContent = "I've been clicked 0 times"
+        this.app.appendChild(this.button);
+      }
+      CR (el, clsName){
+        const elem = document.createElement(el);
+        if (clsName) elem.classList.add(clsName);
+        return elem
+      }
+      $ = n => document.querySelector(n);
+
+      get _numClicks(){
+        return this.button.textContent.split('').filter(x => typeof(x) === 'number');
+      }
+      _resetNumClicks(){
+        this.button.textContent = "I've been clicked 0 times";
+      }
+
+      displayText(value){
+        this.button.textContent = `I've been clicked ${value} time(s)`
+      }
+
+      bindClickEvent(handler){
+        this.button.addEventListener('click', () => {
+          handler();
+        })
+      }
+    }
+
+
+    class Controller {
+      constructor(model, view) {
+        this.model = model;
+        this.view = view;
+
+        this.onTrackerChange(this.model.tracker);
+        this.view.bindClickEvent(this.handleClickEvent);
+      }
+      onTrackerChange = value => {
+        this.view.displayText(value)
+      }
+
+      handleClickEvent = () => {
+        this.model.incrementTracker();
+        this.view.displayText(this.model.tracker);
+      }
+    }
+    const app = new Controller(new Model(), new View())
+  </script>
+</body>
+
+</html>
