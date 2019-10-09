@@ -1,12 +1,74 @@
 class Model {
   constructor() {
-    this.tracker = 0;
+    this.currentData = [];
   }
-  incrementTracker() {
-    this.tracker++;
+  pushToCurrent(data){
+    this.currentData.push(data)
   }
+  add(a, b){return a+b}
+  subtract(a, b){return a-b}
+  divide(a, b){return a/b}
+  multiply (a, b){return a * b}
 }
 
+class View {
+  constructor() {
+    this.unevaluated = this.$('#unevaluated');
+    this.results = this.$('#results');
+    this.buttons = this.$$('.row p');
+    this.numbers = this.$$('.num');
+  }
+  displayResult(data){
+    if(data){
+      this.results.textContent = data;
+    }
+    else{
+      this.results.textContent = '';
+    }
+  }
+  bindNumClickEvent(){
+    this.numbers.forEach(button => button.addEventListener('click', event => {
+      return event.target.textContent;
+    }))
+  }
+  //remove later
+  becomeRed(){
+    this.buttons.forEach(but => but.style.backgroundColor = 'red')
+  }
+
+  $ = n => document.querySelector(n);
+  $$ = n => document.querySelectorAll(n);
+}
+
+class Controller {
+  constructor(model, view) {
+    this.model = model;
+    this.view = view;
+    this.view.bindNumClickEvent(this.handleNumClickEvent);
+   }
+   handleNumClickEvent = () => {
+     //these aren't working
+     console.log(this.view.bindNumClickEvent());
+     this.pushToCurrent("aba");
+     this.view.becomeRed();
+   }
+}
+const app = new Controller(new Model(), new View())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 class View {
   constructor() {
     this.button = this.CreateElem('button', 'MVC-button');
@@ -40,7 +102,6 @@ class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
-
     this.view.bindClickEvent(this.handleClickEvent);
   }
 
@@ -49,4 +110,4 @@ class Controller {
     this.view.displayText(this.model.tracker);
   }
 }
-const app = new Controller(new Model(), new View())
+*/
