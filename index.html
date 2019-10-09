@@ -35,6 +35,14 @@
         this.app = this.$('#root');
         this.button.textContent = "I've been clicked 0 times"
         this.app.appendChild(this.button);
+        this.style = {
+          backgroundColor:"red",
+          border:"none",
+          borderRadius:"0.5rem",
+          outline:"none",
+          padding:"1rem",
+          color:"white"
+        }
       }
       CR (el, clsName){
         const elem = document.createElement(el);
@@ -59,6 +67,15 @@
           handler();
         })
       }
+      becomeRed(){
+        this.button.style.backgroundColor = this.style.backgroundColor;
+        this.button.style.borderRadius = this.style.borderRadius;
+        this.button.style.border = this.style.border;
+        this.button.style.borderRadius = this.style.borderRadius;
+        this.button.style.outline = this.style.outline;
+        this.button.style.color = this.style.color;
+        this.button.style.padding = this.style.padding;
+      }
     }
 
 
@@ -71,12 +88,13 @@
         this.view.bindClickEvent(this.handleClickEvent);
       }
       onTrackerChange = value => {
-        this.view.displayText(value)
+        this.view.displayText(value);
       }
 
       handleClickEvent = () => {
         this.model.incrementTracker();
         this.view.displayText(this.model.tracker);
+        this.view.becomeRed()
       }
     }
     const app = new Controller(new Model(), new View())
