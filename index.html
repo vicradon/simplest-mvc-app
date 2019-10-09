@@ -4,83 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
   <title>Document</title>
 </head>
 
 <body>
-
-  
-  <div id="root"></div>
-  <script>
-    /**
-     * Ok, so, add event listeners to the view components
-     * Create binders in the controller which manually bind the model'smethods
-     * Bind the model to the view in the controller through an on model change
-     * 
-    */
-
-    class Model {
-      constructor() {
-        this.tracker = 0;
-      }
-      incrementTracker(){
-        this.tracker++;
-      }
-    }
-
-    class View {
-      constructor() {
-
-        this.button = this.CR('button');
-        this.app = this.$('#root');
-        this.button.textContent = "I've been clicked 0 times"
-        this.app.appendChild(this.button);
-      }
-      CR (el, clsName){
-        const elem = document.createElement(el);
-        if (clsName) elem.classList.add(clsName);
-        return elem
-      }
-      $ = n => document.querySelector(n);
-
-      get _numClicks(){
-        return this.button.textContent.split('').filter(x => typeof(x) === 'number');
-      }
-      _resetNumClicks(){
-        this.button.textContent = "I've been clicked 0 times";
-      }
-
-      displayText(value){
-        this.button.textContent = `I've been clicked ${value} time(s)`
-      }
-
-      bindClickEvent(handler){
-        this.button.addEventListener('click', () => {
-          handler();
-        })
-      }
-    }
-
-
-    class Controller {
-      constructor(model, view) {
-        this.model = model;
-        this.view = view;
-
-        this.onTrackerChange(this.model.tracker);
-        this.view.bindClickEvent(this.handleClickEvent);
-      }
-      onTrackerChange = value => {
-        this.view.displayText(value)
-      }
-
-      handleClickEvent = () => {
-        this.model.incrementTracker();
-        this.view.displayText(this.model.tracker);
-      }
-    }
-    const app = new Controller(new Model(), new View())
-  </script>
+  <header>
+    <nav>
+      <p>Calculator</p>
+      <div class="icons"></div>
+    </nav>
+  </header>
+  <section id="root">
+    <div id="calculator">
+      <div class="display">
+        <p id ="unevaluated">2+5</p>
+        <p id="results">7</p>
+      </div>
+      <div class="button-set">
+        <div class = "row" id="row1">
+          <p>x<sup>2</sup></p>
+          <p>x<sup>y</sup></p>
+          <p>sin</p>
+          <p>cos</p>
+          <p>tan</p>
+        </div>
+        <div class = "row" id="row2">
+          <p>sqrt</p>
+          <p>10<sup>x</sup></p>
+          <p>log</p>
+          <p>Exp</p>
+          <p>Mod</p>
+        </div>
+        <div class = "row" id="row3">
+          <p>&uparrow;</p>
+          <p>CE</p>
+          <p>C</p>
+          <p>DEL</p>
+          <p class="operator">&divide;</p>
+        </div>
+        <div class = "row" id="row4">
+          <p>&pi;</p>
+          <p class="num">7</p>
+          <p class="num">8</p>
+          <p class="num">9</p>
+          <p class="operator">X</p>
+        </div>
+        <div class = "row" id="row5">
+          <p>n!</p>
+          <p class="num">4</p>
+          <p class="num">5</p>
+          <p class="num">6</p>
+          <p class="operator">-</p>
+        </div>
+        <div class = "row" id="row6">
+          <p>&PlusMinus;</p>
+          <p class="num">1</p>
+          <p class="num">2</p>
+          <p class="num">3</p>
+          <p class="operator">+</p>
+        </div>
+        <div class = "row" id="row7">
+          <p>(</p>
+          <p>)</p>
+          <p class="num">0</p>
+          <p>.</p>
+          <p>=</p>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  <script src="./script.js"></script>
 </body>
 
 </html>
