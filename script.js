@@ -5,7 +5,8 @@ class Model {
   pushToCurrent(data){
     this.currentData.push(data)
   }
-  add(a, b){return a+b}
+  add(a, b){console.log(a+b
+    );return a+b}
   subtract(a, b){return a-b}
   divide(a, b){return a/b}
   multiply (a, b){return a * b}
@@ -28,6 +29,7 @@ class View {
   }
   bindNumClickEvent(){
     this.numbers.forEach(button => button.addEventListener('click', event => {
+      console.log("hello")
       return event.target.textContent;
     }))
   }
@@ -44,13 +46,15 @@ class Controller {
   constructor(model, view) {
     this.model = model;
     this.view = view;
-    this.view.bindNumClickEvent(this.handleNumClickEvent);
+    this.view.bindNumClickEvent();
+    this.model.add(3,5)
    }
    handleNumClickEvent = () => {
      //these aren't working
-     console.log(this.view.bindNumClickEvent());
-     this.pushToCurrent("aba");
-     this.view.becomeRed();
+    //  console.log(this.view.bindNumClickEvent());
+     console.log("Something")
+    //  this.pushToCurrent("aba");
+    //  this.view.becomeRed();
    }
 }
 const app = new Controller(new Model(), new View())
