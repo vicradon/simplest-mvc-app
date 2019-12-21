@@ -12,7 +12,7 @@ A very simple example of MVC architecture
 
 ## CONTRIBUTING
 
-I'm very miuch welcome to contributions. I'd list the current bugs to make it easier for you to contribute. Thanks in advance.
+I'm very much welcome to contributions. I'd list the current bugs to make it easier for you to contribute. Thanks in advance.
 
 ## THE APP
 
